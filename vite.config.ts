@@ -16,6 +16,8 @@ const WRAPPER_META_FILES = new Set([
   'metadata.json',
   'vite.config.ts',
   'vite.config.mjs',
+  'wrangler.jsonc',
+  'README.md',
 ]);
 
 const SKIP_DIRS = new Set([
@@ -26,6 +28,7 @@ const SKIP_DIRS = new Set([
   '.aistudio',
   '.build-outputs',
   'public',
+  'src',
 ]);
 
 function discoverHtmlInputs(

@@ -1,8 +1,11 @@
 {
-  "name": "pixel-tech-conference",
+  "name": "pixel-tattoo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "predev": "[ -d node_modules/.bin ] || bun install || npm install",
     "dev": "vite --port=3000 --host=0.0.0.0",
