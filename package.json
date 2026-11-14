@@ -7,12 +7,12 @@
     "node": ">=20.19.0"
   },
   "scripts": {
-    "predev": "[ -d node_modules/.bin ] || bun install || npm install",
+    "predev": "[ -d node_modules/.bin ] || npm install",
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "prebuild": "[ -d node_modules/.bin ] || bun install || npm install",
+    "prebuild": "[ -d node_modules/.bin ] || npm install",
     "build": "vite build",
     "preview": "vite preview",
-    "prelint": "[ -d node_modules/.bin ] || bun install || npm install",
+    "prelint": "[ -d node_modules/.bin ] || npm install",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
