@@ -92,8 +92,16 @@ export function ArtistStudioSection() {
                     <div>
                       <p className="font-medium text-white">{ARTIST_INFO.address}</p>
                       <p className="text-xs text-zinc-400">
-                        {ARTIST_INFO.neighborhood}, {ARTIST_INFO.country}
+                        {ARTIST_INFO.neighborhood}, {ARTIST_INFO.country} · Acceso directo desde Cordón, Ciudad Vieja y Pocitos
                       </p>
+                      <a
+                        href="https://maps.google.com/?q=Rondeau+1394,+Montevideo,+Uruguay"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-block font-mono text-[11px] text-[#F7C600] hover:underline"
+                      >
+                        Ver en Google Maps
+                      </a>
                     </div>
                   </div>
 

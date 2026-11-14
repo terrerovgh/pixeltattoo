@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>/assets/instagram/profile_tony.jpg</image:loc>
+      <image:title>Tigre realista en espalda completa — Pixel Tattoo Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>/assets/instagram/DFqivTeJDF-.jpg</image:loc>
+      <image:title>Tatuaje realismo negro y grises — Pixel Tattoo Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>/assets/instagram/DLm0C6xOAw0_c0.jpg</image:loc>
+      <image:title>Tatuaje Peñarol Barra Ámsterdam 1891 — Pixel Tattoo Uruguay</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>/assets/instagram/DNdRIv0tQN_.jpg</image:loc>
+      <image:title>Tatuaje full color Kenshin Himura — Pixel Tattoo Montevideo</image:title>
+    </image:image>
+  </url>
+</urlset>

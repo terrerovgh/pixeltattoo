@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { TattooWork } from './data/tattooData';
+import { SeoSync } from './components/SeoSync';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { PortfolioSection } from './components/PortfolioSection';
@@ -12,6 +13,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-100">
+      <SeoSync />
       <Navbar />
       <main>
         <HeroSection />
