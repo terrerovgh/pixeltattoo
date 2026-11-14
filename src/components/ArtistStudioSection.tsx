@@ -54,7 +54,10 @@ export function ArtistStudioSection() {
                     {ARTIST_INFO.studioName}
                   </p>
                   <p className="mt-1 text-sm text-zinc-400">
-                    {ARTIST_INFO.address}, {ARTIST_INFO.neighborhood}
+                    {ARTIST_INFO.address}, {ARTIST_INFO.neighborhood}, {ARTIST_INFO.country}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+                    A pasos de 18 de Julio, con acceso directo desde Cordón, Ciudad Vieja, Tres Cruces, Pocitos y Parque Rodó.
                   </p>
                   <a
                     href="https://maps.google.com/?q=Rondeau+1394,+Montevideo,+Uruguay"

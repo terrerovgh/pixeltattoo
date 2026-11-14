@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type MouseEvent } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   ARTIST_INFO,
@@ -7,9 +7,16 @@ import {
   type TattooStyleId,
   type TattooWork,
 } from '../data/tattooData';
+import {
+  SPECIALTY_LINKS,
+  navigateToSeoRoute,
+  type SeoRouteConfig,
+  type SeoRoutePath,
+} from '../data/seoRoutes';
 import { LightboxModal } from './LightboxModal';
 
 interface PortfolioSectionProps {
+  activeRoute: SeoRouteConfig;
   onSelectReference: (work: TattooWork) => void;
 }
 
@@ -36,10 +43,14 @@ function TattooCardImage({ src, alt, title }: { src: string; alt: string; title:
   );
 }
 
-export function PortfolioSection({ onSelectReference }: PortfolioSectionProps) {
-  const [activeFilter, setActiveFilter] = useState<TattooStyleId>('all');
+export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSectionProps) {
+  const [activeFilter, setActiveFilter] = useState<TattooStyleId>(activeRoute.portfolioFilter);
   const [selectedWorkId, setSelectedWorkId] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    setActiveFilter(activeRoute.portfolioFilter);
+  }, [activeRoute.portfolioFilter]);
 
   const filteredWorks = useMemo(() => {
     if (activeFilter === 'all') return TATTOO_WORKS;
@@ -72,6 +83,12 @@ export function PortfolioSection({ onSelectReference }: PortfolioSectionProps) {
     if (bookingEl) {
       bookingEl.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleRouteClick = (e: MouseEvent<HTMLAnchorElement>, path: SeoRoutePath) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigateToSeoRoute(path);
   };
 
   return (
@@ -154,12 +171,29 @@ export function PortfolioSection({ onSelectReference }: PortfolioSectionProps) {
           })}
         </div>
 
-        <div className="mt-12 flex justify-end">
+        {/* Crawlable SEO Specialty Links + Instagram Archive */}
+        <div className="mt-12 flex flex-col justify-between gap-4 border-t border-zinc-900 pt-8 sm:flex-row sm:items-center">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-500">
+            <span>Especialidades en Montevideo:</span>
+            {SPECIALTY_LINKS.map((item, idx) => (
+              <span key={item.path} className="inline-flex items-center gap-4">
+                {idx > 0 && <span aria-hidden="true">·</span>}
+                <a
+                  href={item.path}
+                  onClick={(e) => handleRouteClick(e, item.path)}
+                  className="text-zinc-300 transition-colors hover:text-[#F7C600]"
+                >
+                  {item.slugLabel}
+                </a>
+              </span>
+            ))}
+          </div>
+
           <a
             href={ARTIST_INFO.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#F7C600]"
+            className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#F7C600] whitespace-nowrap shrink-0"
           >
             Ver archivo completo en {ARTIST_INFO.handle}
           </a>

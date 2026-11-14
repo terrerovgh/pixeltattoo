@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
+import { getCanonicalUrl, type SeoRouteConfig } from '../data/seoRoutes';
 
-export function SeoSync() {
+interface SeoSyncProps {
+  route: SeoRouteConfig;
+}
+
+export function SeoSync({ route }: SeoSyncProps) {
   useEffect(() => {
-    const canonicalUrl = window.location.origin + window.location.pathname;
-    const absoluteOgImage = `${window.location.origin}/assets/instagram/profile_tony.jpg`;
+    const canonicalUrl = getCanonicalUrl(route.path);
+
+    document.title = route.title;
 
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
@@ -23,10 +29,16 @@ export function SeoSync() {
       tag.content = content;
     };
 
+    upsertMeta('name', 'description', route.description);
     upsertMeta('property', 'og:url', canonicalUrl);
-    upsertMeta('property', 'og:image', absoluteOgImage);
-    upsertMeta('name', 'twitter:image', absoluteOgImage);
-  }, []);
+    upsertMeta('property', 'og:title', route.title);
+    upsertMeta('property', 'og:description', route.description);
+    upsertMeta('property', 'og:image', route.ogImage);
+    upsertMeta('property', 'og:image:alt', route.ogImageAlt);
+    upsertMeta('name', 'twitter:title', route.title);
+    upsertMeta('name', 'twitter:description', route.description);
+    upsertMeta('name', 'twitter:image', route.ogImage);
+  }, [route]);
 
   return null;
 }

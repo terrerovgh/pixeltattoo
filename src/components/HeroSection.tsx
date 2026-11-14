@@ -17,12 +17,12 @@ export function HeroSection() {
         loop
         playsInline
         preload="metadata"
-        poster="./assets/instagram/DFqivTeJDF-.jpg"
+        poster="/assets/instagram/DFqivTeJDF-.jpg"
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-45 contrast-110 saturate-75"
       >
-        <source src="./assets/instagram/DaTftZYTqkm.mp4" type="video/mp4" />
-        <source src="./assets/instagram/DFqivTeJDF-.mp4" type="video/mp4" />
+        <source src="/assets/instagram/DaTftZYTqkm.mp4" type="video/mp4" />
+        <source src="/assets/instagram/DFqivTeJDF-.mp4" type="video/mp4" />
       </video>
 
       {/* Measured contrast scrim */}

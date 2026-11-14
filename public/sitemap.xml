@@ -4,25 +4,105 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
   <url>
-    <loc>/</loc>
+    <loc>https://tonypixeltattoo.com/</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>/assets/instagram/profile_tony.jpg</image:loc>
-      <image:title>Tigre realista en espalda completa — Pixel Tattoo Montevideo</image:title>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/profile_tony.jpg</image:loc>
+      <image:title>Tatuaje de tigre realista en espalda completa por Tony Otero en Montevideo</image:title>
     </image:image>
     <image:image>
-      <image:loc>/assets/instagram/DFqivTeJDF-.jpg</image:loc>
-      <image:title>Tatuaje realismo negro y grises — Pixel Tattoo Montevideo</image:title>
+      <image:loc>https://tonypixeltattoo.com/assets/aistudio/screenshot-2026-11-13_21-58-54-brave-browser_e5cfcf6f.png</image:loc>
+      <image:title>Antonio Tony Otero tatuador profesional en Pixel Tattoo Montevideo</image:title>
     </image:image>
     <image:image>
-      <image:loc>/assets/instagram/DLm0C6xOAw0_c0.jpg</image:loc>
-      <image:title>Tatuaje Peñarol Barra Ámsterdam 1891 — Pixel Tattoo Uruguay</image:title>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DFqivTeJDF-.jpg</image:loc>
+      <image:title>Tatuaje realismo negro y grises en Centro Montevideo</image:title>
     </image:image>
     <image:image>
-      <image:loc>/assets/instagram/DNdRIv0tQN_.jpg</image:loc>
-      <image:title>Tatuaje full color Kenshin Himura — Pixel Tattoo Montevideo</image:title>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DLm0C6xOAw0_c0.jpg</image:loc>
+      <image:title>Tatuaje Peñarol Barra Ámsterdam 1891 en Uruguay</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DNdRIv0tQN_.jpg</image:loc>
+      <image:title>Tatuaje full color Kenshin Himura en Montevideo</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tonypixeltattoo.com/tatuajes-realismo-montevideo</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/profile_tony.jpg</image:loc>
+      <image:title>Tigre realista en espalda completa — Tatuajes Realismo Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DFqivTeJDF-.jpg</image:loc>
+      <image:title>Fe, Fuerza y Sacrificio — Realismo negro y grises en pantorrilla Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DEZuyQyJEFx_c0.jpg</image:loc>
+      <image:title>Anubis y pirámides egipcias en realismo black and grey Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DNQKTL_tw8k_c0.jpg</image:loc>
+      <image:title>Paloma en vuelo realismo en negro y grises en antebrazo Montevideo</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tonypixeltattoo.com/tatuajes-penarol-uruguay</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DLm0C6xOAw0_c0.jpg</image:loc>
+      <image:title>Tatuaje Peñarol Barra Ámsterdam 1891 y Copa Libertadores Uruguay</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DDEtHUUOvkq_c0.jpg</image:loc>
+      <image:title>Tatuaje sol uruguayo y escudo aurinegro Peñarol 1891 en Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DJUP2Ftu50I.jpg</image:loc>
+      <image:title>Tatuaje homenaje Luis Suárez y fútbol uruguayo a color en Montevideo</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tonypixeltattoo.com/tatuajes-color-cover-up-montevideo</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DNdRIv0tQN_.jpg</image:loc>
+      <image:title>Tatuaje full color anime Kenshin Himura en antebrazo Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DF-tlaeJ0EE_c0.jpg</image:loc>
+      <image:title>Cover-up león aurinegro realista cubriendo tatuaje viejo en Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DDriyFCJNwb_c0.jpg</image:loc>
+      <image:title>Retrato hiperrealista a todo color en antebrazo — Pixel Tattoo Montevideo</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tonypixeltattoo.com/estudio-tempel-centro-montevideo</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/instagram/DGlK4-POnHr.jpg</image:loc>
+      <image:title>Estación de tatuaje en Tempel Tattoo Studio Rondeau 1394 Centro Montevideo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://tonypixeltattoo.com/assets/aistudio/screenshot-2026-11-13_21-58-54-brave-browser_e5cfcf6f.png</image:loc>
+      <image:title>Tony Otero tatuador en Centro Montevideo Uruguay</image:title>
     </image:image>
   </url>
 </urlset>

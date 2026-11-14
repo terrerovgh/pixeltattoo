@@ -4,6 +4,7 @@ import { Check, X } from 'lucide-react';
 import { ARTIST_INFO, type TattooWork } from '../data/tattooData';
 
 interface BookingSectionProps {
+  defaultStyle: string;
   selectedReference: TattooWork | null;
   onClearReference: () => void;
 }
@@ -24,14 +25,24 @@ const PLACEMENT_OPTIONS = [
   'Otra zona',
 ];
 
-export function BookingSection({ selectedReference, onClearReference }: BookingSectionProps) {
+export function BookingSection({
+  defaultStyle,
+  selectedReference,
+  onClearReference,
+}: BookingSectionProps) {
   const [clientName, setClientName] = useState('');
-  const [styleChoice, setStyleChoice] = useState(STYLE_OPTIONS[0]);
+  const [styleChoice, setStyleChoice] = useState(defaultStyle || STYLE_OPTIONS[0]);
   const [placement, setPlacement] = useState(PLACEMENT_OPTIONS[0]);
   const [sizeCm, setSizeCm] = useState(18);
   const [ideaNotes, setIdeaNotes] = useState('');
   const [copied, setCopied] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (!selectedReference && defaultStyle && STYLE_OPTIONS.includes(defaultStyle)) {
+      setStyleChoice(defaultStyle);
+    }
+  }, [defaultStyle, selectedReference]);
 
   useEffect(() => {
     if (!selectedReference) return;

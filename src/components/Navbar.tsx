@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { ARTIST_INFO } from '../data/tattooData';
+import { navigateToSeoRoute, type SeoRoutePath } from '../data/seoRoutes';
 
 const NAV_ITEMS = [
   { label: 'Portfolio', href: '#portfolio' },
@@ -9,15 +10,30 @@ const NAV_ITEMS = [
   { label: 'Turnos', href: '#turnos' },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  currentPath: SeoRoutePath;
+}
+
+export function Navbar({ currentPath }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleHomeClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    if (currentPath !== '/') {
+      navigateToSeoRoute('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-[#050505]/85 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-8 px-6 lg:px-10">
         {/* Zone 1: Single-line brand wordmark */}
         <a
-          href="#inicio"
+          href="/"
+          onClick={handleHomeClick}
           className="font-display text-lg font-bold tracking-tight text-white whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F7C600]"
         >
           {ARTIST_INFO.brand}

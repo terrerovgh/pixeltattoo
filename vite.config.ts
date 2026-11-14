@@ -177,7 +177,7 @@ const importmapTable = parseImportmaps(htmlInputs);
 
 export default defineConfig({
   appType: 'spa',
-  base: './',
+  base: '/',
   plugins: [react(), tailwindcss(), aisSyncStaticAndImportmapPlugin(importmapTable)],
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-dom/client', 'lucide-react'],
