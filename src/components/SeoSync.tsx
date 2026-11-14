@@ -34,6 +34,7 @@ export function SeoSync({ route }: SeoSyncProps) {
     upsertMeta('property', 'og:title', route.title);
     upsertMeta('property', 'og:description', route.description);
     upsertMeta('property', 'og:image', route.ogImage);
+    upsertMeta('property', 'og:image:secure_url', route.ogImage);
     upsertMeta('property', 'og:image:alt', route.ogImageAlt);
     upsertMeta('name', 'twitter:title', route.title);
     upsertMeta('name', 'twitter:description', route.description);
