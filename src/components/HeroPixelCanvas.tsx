@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { HERO_CYCLE_ITEMS } from '../data/tattooData';
+import { useEffect, useRef } from 'react';
 
 const BOLD_GLYPHS: Record<string, string[]> = {
   ' ': ['...', '...', '...', '...', '...', '...', '...', '...', '...'],
@@ -88,7 +87,6 @@ const HERO_TARGET = buildHeroTarget();
 
 export function HeroPixelCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [cycleIdx, setCycleIdx] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -287,8 +285,7 @@ export function HeroPixelCanvas() {
     }
 
     function triggerCycle() {
-      currentIdx = (currentIdx + 1) % HERO_CYCLE_ITEMS.length;
-      setCycleIdx(currentIdx);
+      currentIdx = (currentIdx + 1) % 4;
       buildParticles(currentIdx, false);
     }
 
@@ -297,7 +294,7 @@ export function HeroPixelCanvas() {
       cycleTimer = window.setTimeout(() => {
         if (!document.hidden) triggerCycle();
         scheduleCycle();
-      }, 4600);
+      }, 5200);
     }
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -312,11 +309,7 @@ export function HeroPixelCanvas() {
     };
 
     const handleClick = () => {
-      if (prefersReduced) {
-        currentIdx = (currentIdx + 1) % HERO_CYCLE_ITEMS.length;
-        setCycleIdx(currentIdx);
-        return;
-      }
+      if (prefersReduced) return;
       triggerCycle();
       scheduleCycle();
     };
@@ -350,23 +343,13 @@ export function HeroPixelCanvas() {
     };
   }, []);
 
-  const currentItem = HERO_CYCLE_ITEMS[cycleIdx];
-
   return (
     <div className="w-full">
       <canvas
         ref={canvasRef}
-        aria-label="PIXEL TATTOO — animación interactiva de píxeles"
-        className="block w-full aspect-[49/16] max-h-[38svh] sm:max-h-[42svh] cursor-pointer select-none"
+        aria-label="PIXEL TATTOO animación interactiva de píxeles"
+        className="block w-full aspect-[49/16] max-h-[38svh] sm:max-h-[44svh] cursor-pointer select-none"
       />
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800/90 pt-3">
-        <p className="text-xs sm:text-sm text-zinc-300 font-medium">
-          {currentItem.caption}
-        </p>
-        <p className="font-mono text-[11px] sm:text-xs tabular-nums text-[#F7C600] tracking-wide">
-          {currentItem.tag}
-        </p>
-      </div>
     </div>
   );
 }
