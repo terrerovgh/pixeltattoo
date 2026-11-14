@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    background-color: #050505;
+    color: #f4f4f5;
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Stepped pixel micro-interactions */
+.pixel-btn {
+  position: relative;
+  overflow: hidden;
+  transition: color 180ms steps(6), border-color 180ms steps(6), transform 120ms steps(3);
+}
+
+.pixel-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #ffffff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 200ms steps(6);
+  z-index: 0;
+}
+
+.pixel-btn:hover::before,
+.pixel-btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.pixel-btn > span,
+.pixel-btn > svg {
+  position: relative;
+  z-index: 1;
+}
+
+.pixel-underline {
+  position: relative;
+}
+
+.pixel-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background-color: #F7C600;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms steps(5);
+}
+
+.pixel-underline:hover::after,
+.pixel-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-btn::before,
+  .pixel-underline::after {
+    transition: none;
+  }
+}
