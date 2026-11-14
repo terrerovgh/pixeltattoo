@@ -20,6 +20,55 @@ export interface FaqItem {
   a: string;
 }
 
+export interface TattooPreferenceState {
+  clientName: string;
+  styleChoice: string;
+  placement: string;
+  sizeCm: number;
+  ideaNotes: string;
+  reference: TattooWork | null;
+}
+
+export const BOOKING_STYLE_OPTIONS = [
+  'Realismo en negro y grises',
+  'Pasión Aurinegra',
+  'Color',
+  'Cobertura',
+  'Escudo bordado',
+];
+
+export const BOOKING_PLACEMENT_OPTIONS = [
+  'Antebrazo',
+  'Brazo o manga',
+  'Pierna o pantorrilla',
+  'Espalda o pecho',
+  'Otra zona',
+];
+
+export function mapFilterToBookingStyle(styleId: TattooStyleId): string | null {
+  if (styleId === 'realism') return 'Realismo en negro y grises';
+  if (styleId === 'futbol') return 'Pasión Aurinegra';
+  if (styleId === 'color') return 'Color';
+  return null;
+}
+
+export function buildWhatsAppMessage(pref: TattooPreferenceState): string {
+  const lines = [
+    'Hola Tony! Te escribo desde la web de Pixel Tattoo.',
+    pref.clientName.trim() ? `Nombre: ${pref.clientName.trim()}` : null,
+    `Estilo: ${pref.styleChoice}`,
+    `Zona: ${pref.placement} (${pref.sizeCm} cm aprox.)`,
+    pref.reference ? `Referencia del portfolio: ${pref.reference.title}` : null,
+    pref.ideaNotes.trim() ? `Idea: ${pref.ideaNotes.trim()}` : null,
+  ].filter(Boolean);
+
+  return lines.join('\n');
+}
+
+export function buildWhatsAppHref(pref: TattooPreferenceState): string {
+  return `${ARTIST_INFO.whatsappUrl}?text=${encodeURIComponent(buildWhatsAppMessage(pref))}`;
+}
+
 export const ARTIST_INFO = {
   brand: 'PIXEL TATTOO',
   artistName: 'Antonio «Tony» Otero',

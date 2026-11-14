@@ -1,5 +1,12 @@
-import { useEffect, useState } from 'react';
-import type { TattooWork } from './data/tattooData';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  BOOKING_PLACEMENT_OPTIONS,
+  BOOKING_STYLE_OPTIONS,
+  mapFilterToBookingStyle,
+  type TattooPreferenceState,
+  type TattooStyleId,
+  type TattooWork,
+} from './data/tattooData';
 import { SEO_ROUTES, normalizeSeoPath, type SeoRoutePath } from './data/seoRoutes';
 import { SeoSync } from './components/SeoSync';
 import { Navbar } from './components/Navbar';
@@ -9,16 +16,42 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArtistStudioSection } from './components/ArtistStudioSection';
 import { BookingSection } from './components/BookingSection';
 import { Footer } from './components/Footer';
+import { WhatsAppFab } from './components/WhatsAppFab';
+
+function resolvePlacementFromWork(work: TattooWork): string {
+  const zone = work.placement.toLowerCase();
+  if (zone.includes('espalda')) return 'Espalda o pecho';
+  if (zone.includes('pierna') || zone.includes('pantorrilla')) return 'Pierna o pantorrilla';
+  if (zone.includes('antebrazo')) return 'Antebrazo';
+  return 'Brazo o manga';
+}
 
 export function App() {
-  const [selectedReference, setSelectedReference] = useState<TattooWork | null>(null);
   const [currentPath, setCurrentPath] = useState<SeoRoutePath>(() =>
     typeof window !== 'undefined' ? normalizeSeoPath(window.location.pathname) : '/'
   );
 
+  const initialRoute = SEO_ROUTES[currentPath] ?? SEO_ROUTES['/'];
+
+  const [preference, setPreference] = useState<TattooPreferenceState>(() => ({
+    clientName: '',
+    styleChoice: initialRoute.bookingStyleDefault || BOOKING_STYLE_OPTIONS[0],
+    placement: BOOKING_PLACEMENT_OPTIONS[0],
+    sizeCm: 18,
+    ideaNotes: '',
+    reference: null,
+  }));
+
   useEffect(() => {
     const syncRoute = () => {
-      setCurrentPath(normalizeSeoPath(window.location.pathname));
+      const nextPath = normalizeSeoPath(window.location.pathname);
+      setCurrentPath(nextPath);
+      const nextRoute = SEO_ROUTES[nextPath] ?? SEO_ROUTES['/'];
+      if (nextRoute.bookingStyleDefault) {
+        setPreference((prev) =>
+          prev.reference ? prev : { ...prev, styleChoice: nextRoute.bookingStyleDefault }
+        );
+      }
     };
 
     window.addEventListener('popstate', syncRoute);
@@ -29,6 +62,33 @@ export function App() {
     };
   }, []);
 
+  const handleUpdatePreference = useCallback((patch: Partial<TattooPreferenceState>) => {
+    setPreference((prev) => ({ ...prev, ...patch }));
+  }, []);
+
+  const handleSelectReference = useCallback((work: TattooWork) => {
+    const mappedStyle = mapFilterToBookingStyle(work.style);
+    setPreference((prev) => ({
+      ...prev,
+      reference: work,
+      styleChoice: mappedStyle ?? prev.styleChoice,
+      placement: resolvePlacementFromWork(work),
+    }));
+  }, []);
+
+  const handleFilterChange = useCallback((styleId: TattooStyleId) => {
+    const mappedStyle = mapFilterToBookingStyle(styleId);
+    if (!mappedStyle) return;
+    setPreference((prev) => ({
+      ...prev,
+      styleChoice: mappedStyle,
+    }));
+  }, []);
+
+  const handleClearReference = useCallback(() => {
+    setPreference((prev) => ({ ...prev, reference: null }));
+  }, []);
+
   const activeRoute = SEO_ROUTES[currentPath] ?? SEO_ROUTES['/'];
 
   return (
@@ -37,15 +97,20 @@ export function App() {
       <Navbar currentPath={currentPath} />
       <main>
         {currentPath === '/' ? <HeroSection /> : <SpecialtyHero route={activeRoute} />}
-        <PortfolioSection activeRoute={activeRoute} onSelectReference={setSelectedReference} />
+        <PortfolioSection
+          activeRoute={activeRoute}
+          onSelectReference={handleSelectReference}
+          onFilterChange={handleFilterChange}
+        />
         <ArtistStudioSection />
         <BookingSection
-          defaultStyle={activeRoute.bookingStyleDefault}
-          selectedReference={selectedReference}
-          onClearReference={() => setSelectedReference(null)}
+          preference={preference}
+          onUpdatePreference={handleUpdatePreference}
+          onClearReference={handleClearReference}
         />
       </main>
       <Footer />
+      <WhatsAppFab preference={preference} />
     </div>
   );
 }

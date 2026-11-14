@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type MouseEvent } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { Maximize2 } from 'lucide-react';
 import {
   ARTIST_INFO,
   PORTFOLIO_FILTERS,
@@ -18,6 +19,7 @@ import { LightboxModal } from './LightboxModal';
 interface PortfolioSectionProps {
   activeRoute: SeoRouteConfig;
   onSelectReference: (work: TattooWork) => void;
+  onFilterChange?: (styleId: TattooStyleId) => void;
 }
 
 function TattooCardImage({ src, alt, title }: { src: string; alt: string; title: string }) {
@@ -43,7 +45,11 @@ function TattooCardImage({ src, alt, title }: { src: string; alt: string; title:
   );
 }
 
-export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSectionProps) {
+export function PortfolioSection({
+  activeRoute,
+  onSelectReference,
+  onFilterChange,
+}: PortfolioSectionProps) {
   const [activeFilter, setActiveFilter] = useState<TattooStyleId>(activeRoute.portfolioFilter);
   const [selectedWorkId, setSelectedWorkId] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -51,6 +57,11 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
   useEffect(() => {
     setActiveFilter(activeRoute.portfolioFilter);
   }, [activeRoute.portfolioFilter]);
+
+  const handleSelectFilter = (filterId: TattooStyleId) => {
+    setActiveFilter(filterId);
+    onFilterChange?.(filterId);
+  };
 
   const filteredWorks = useMemo(() => {
     if (activeFilter === 'all') return TATTOO_WORKS;
@@ -121,7 +132,7 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
                   role="tab"
                   aria-selected={isActive}
                   type="button"
-                  onClick={() => setActiveFilter(filter.id)}
+                  onClick={() => handleSelectFilter(filter.id)}
                   className={`min-h-[40px] px-4 py-2 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-[#F7C600] ${
                     isActive
                       ? 'bg-[#F7C600] text-black font-semibold'
@@ -135,7 +146,7 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
           </div>
         </div>
 
-        {/* Pure Photography Grid with Subtle Hover Title */}
+        {/* Pure Photography Grid with Subtle Hover Title & Lightbox Affordance */}
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[360px]">
           {filteredWorks.map((work, idx) => {
             const isFeatured = activeFilter === 'all' && idx === 0;
@@ -144,6 +155,7 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
               <button
                 key={work.id}
                 type="button"
+                aria-label={`Ver en alta resolución: ${work.title}`}
                 onClick={() => setSelectedWorkId(work.id)}
                 className={`group relative flex flex-col justify-end overflow-hidden bg-[#0E0E11] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F7C600] ${
                   isFeatured
@@ -155,16 +167,27 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
                   <TattooCardImage src={work.image} alt={work.alt} title={work.title} />
                 </div>
 
-                {/* Subtle hover scrim and title only */}
+                {/* Measured contrast scrim on hover/focus */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
                 />
+
+                {/* Top-right expand affordance */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-4 right-4 z-10 inline-flex h-9 w-9 items-center justify-center bg-black/75 text-zinc-200 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                >
+                  <Maximize2 className="h-4 w-4" />
+                </span>
 
                 <div className="relative z-10 mt-auto p-6 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
                   <h3 className="font-display text-lg font-semibold tracking-tight text-white">
                     {work.title}
                   </h3>
+                  <p className="mt-1 text-xs text-zinc-300">
+                    {work.styleLabel} <span aria-hidden="true">·</span> {work.placement}
+                  </p>
                 </div>
               </button>
             );
@@ -202,6 +225,8 @@ export function PortfolioSection({ activeRoute, onSelectReference }: PortfolioSe
 
       <LightboxModal
         work={activeWork}
+        currentIndex={selectedIndex}
+        totalWorks={filteredWorks.length}
         onClose={() => setSelectedWorkId(null)}
         onPrevWork={handlePrevWork}
         onNextWork={handleNextWork}
